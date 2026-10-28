@@ -1,0 +1,16 @@
+
+{
+  "name": "qualitycode-testes",
+  "version": "1.0.0",
+  "description": "Projeto de testes automatizados com Jest e Cypress",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^14.0.0",
+    "jest": "^29.7.0"
+  }
+}
