@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QualityCode - Gerenciador de Tarefas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    main {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+    }
+
+    h1 { color: #1d4ed8; }
+
+    form {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px;
+    }
+
+    button {
+      padding: 12px;
+      border: 0;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+
+    li { margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Gerenciador de Tarefas</h1>
+
+    <form id="form-tarefa">
+      <input
+        id="input-tarefa"
+        data-testid="input-tarefa"
+        type="text"
+        placeholder="Digite uma tarefa"
+        required
+      >
+      <button data-testid="botao-adicionar" type="submit">
+        Adicionar
+      </button>
+    </form>
+
+    <ul id="lista-tarefas" data-testid="lista-tarefas"></ul>
+  </main>
+
+  <script>
+    const formulario = document.getElementById('form-tarefa');
+    const entrada = document.getElementById('input-tarefa');
+    const lista = document.getElementById('lista-tarefas');
+
+    formulario.addEventListener('submit', function(evento) {
+      evento.preventDefault();
+
+      const texto = entrada.value.trim();
+
+      if (texto === '') return;
+
+      const tarefa = document.createElement('li');
+      tarefa.textContent = texto;
+      lista.appendChild(tarefa);
+
+      entrada.value = '';
+    });
+  </script>
+</body>
+</html>
