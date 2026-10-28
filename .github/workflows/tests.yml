@@ -1,0 +1,44 @@
+
+name: Testes Automatizados
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  testes:
+    name: Jest e Cypress
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Executar testes Jest e cobertura
+        run: npm run test:coverage
+
+      - name: Iniciar servidor da interface
+        run: |
+          python3 -m http.server 8080 --bind 127.0.0.1 > /tmp/web.log 2>&1 &
+          for i in {1..20}; do
+            if curl -fsS http://127.0.0.1:8080/ > /dev/null; then
+              echo "Servidor iniciado."
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/web.log
+          exit 1
+
+      - name: Executar testes Cypress
+        run: npx cypress run
